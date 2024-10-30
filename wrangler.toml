@@ -1,4 +1,5 @@
-name = "generate"
-account_id = "2311a34ed4b9a31a0c6a154fb061327a" # invoice.workers.dev
+name = "WSU Invoice Generator"
+account_id = "7d181c0234e86356f5fe834b5978e300" # invoice.workers.dev
+route = "https://invoice-generator.weshopu.us/*"
 type = "webpack"
 workers_dev = true
