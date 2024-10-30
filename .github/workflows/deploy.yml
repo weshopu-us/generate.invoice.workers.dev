@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Publish
-        uses: cloudflare/wrangler-action@1.2.0
+        uses: cloudflare/wrangler-action@2
         with:
-          apiKey: ${{ secrets.apiKey }}
-          email: ${{ secrets.email }}
-          preCommands: npm ci
+          apiToken: ${{ secrets.apiToken }}  # Use apiToken instead of apiKey
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
