@@ -194,31 +194,43 @@ async function handleRequest(event) {
   yPosition += 10;
 
   // Payment information
-  doc.setFont("helvetica", "bold");
-  docText(marginLeft, yPosition, "Bank Information:");
-  yPosition += 5;
-  doc.setFont("helvetica", "normal");
-  const bankInfo = payment_methods.bank_information;
-  docText(marginLeft, yPosition, `Name: ${bankInfo.name}`);
-  yPosition += 5;
-  docText(marginLeft, yPosition, `Bank: ${bankInfo.bank}`);
-  yPosition += 5;
-  docText(marginLeft, yPosition, `Account Number: ${bankInfo.account_number}`);
-  yPosition += 5;
-  docText(marginLeft, yPosition, `Routing Number: ${bankInfo.routing_number}`);
-  yPosition += 10;
+  if (payment_methods.bank_information) {
+    doc.setFont("helvetica", "bold");
+    docText(marginLeft, yPosition, "Bank Information:");
+    yPosition += 5;
+    doc.setFont("helvetica", "normal");
+    const bankInfo = payment_methods.bank_information;
+    docText(marginLeft, yPosition, `Name: ${bankInfo.name}`);
+    yPosition += 5;
+    docText(marginLeft, yPosition, `Bank: ${bankInfo.bank}`);
+    yPosition += 5;
+    docText(
+      marginLeft,
+      yPosition,
+      `Account Number: ${bankInfo.account_number}`
+    );
+    yPosition += 5;
+    docText(
+      marginLeft,
+      yPosition,
+      `Routing Number: ${bankInfo.routing_number}`
+    );
+    yPosition += 10;
+  }
 
   // Zelle information
-  doc.setFont("helvetica", "bold");
-  docText(marginLeft, yPosition, "Zelle Information:");
-  yPosition += 5;
-  doc.setFont("helvetica", "normal");
-  docText(
-    marginLeft,
-    yPosition,
-    `Email: ${payment_methods.zelle_information.email}`
-  );
-  yPosition += 10;
+  if (payment_methods.zelle_information) {
+    doc.setFont("helvetica", "bold");
+    docText(marginLeft, yPosition, "Zelle Information:");
+    yPosition += 5;
+    doc.setFont("helvetica", "normal");
+    docText(
+      marginLeft,
+      yPosition,
+      `Email: ${payment_methods.zelle_information.email}`
+    );
+    yPosition += 10;
+  }
 
   // Pricing information
   doc.setFont("helvetica", "bold");
