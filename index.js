@@ -66,17 +66,38 @@ addEventListener("fetch", (event) => {
 });
 
 async function handleRequest(event) {
-  if (event.request.method !== "POST") {
-    return new Response("Only POST requests are allowed", { status: 405 });
-  }
-
   let data;
-  try {
-    data = await event.request.json();
-  } catch (error) {
-    return new Response("Invalid JSON format", { status: 400 });
+
+  if (event.request.method === "POST") {
+    // Handle POST request
+    try {
+      data = await event.request.json();
+    } catch (error) {
+      return new Response("Invalid JSON format", { status: 400 });
+    }
+  } else if (event.request.method === "GET") {
+    // Handle GET request using a single URL parameter
+    const url = new URL(event.request.url);
+    const jsonData = url.searchParams.get("data");
+
+    if (!jsonData) {
+      return new Response("Missing 'data' parameter", { status: 400 });
+    }
+
+    try {
+      console.log("JSON Data:", jsonData);
+      data = JSON.parse(jsonData);
+    } catch (error) {
+      return new Response("Invalid JSON in 'data' parameter", { status: 400 });
+    }
+  } else {
+    return new Response("Only GET and POST requests are allowed", {
+      status: 405,
+    });
   }
 
+  console.log("Data F:", data);
+  // Extract data fields
   const {
     company_information,
     customer_information,
@@ -236,26 +257,26 @@ async function handleRequest(event) {
   doc.setFont("helvetica", "bold");
   docText(
     marginRight,
-    yPosition - 44,
+    yPosition - 14,
     `Subtotal: ${pricing.subtotal}`,
     "right"
   );
   yPosition += 5;
   docText(
     marginRight,
-    yPosition - 44,
+    yPosition - 14,
     `Shipping: ${pricing.shipping}`,
     "right"
   );
   yPosition += 5;
-  docText(marginRight, yPosition - 44, `Paid: ${pricing.paid}`, "right");
+  docText(marginRight, yPosition - 14, `Paid: ${pricing.paid}`, "right");
   yPosition += 5;
-  docText(marginRight, yPosition - 44, `Total: ${pricing.total}`, "right");
+  docText(marginRight, yPosition - 14, `Total: ${pricing.total}`, "right");
   yPosition += 5;
   if (pricing.credit_card_fee)
     docText(
       marginRight,
-      yPosition - 34,
+      yPosition - 4,
       `Credit Card: ${pricing.credit_card_fee} Fee | ${pricing.total_with_fee}`,
       "right"
     );
