@@ -37,12 +37,6 @@
 //     },
 //   ],
 //   payment_methods: {
-//     bank_information: {
-//       name: "We Shop U Miami Corp",
-//       bank: "Pittsburgh National Bank (PNC)",
-//       account_number: "1238866749",
-//       routing_number: "123456789",
-//     },
 //     zelle_information: {
 //       email: "accounting@weshopu.us",
 //     },
@@ -133,8 +127,8 @@ async function handleRequest(event) {
 
   // Logo
   doc.addImage(logoBase64, "PNG", marginLeft, yPosition, 50, 15);
-  doc.addImage(watermarkBase64, "PNG", marginLeft, yPosition + 30, 170, 180);
-  yPosition += 22; // Move down after logo
+  doc.addImage(watermarkBase64, "PNG", marginLeft, 60, 170, 180);
+  yPosition += 30; // Move down after logo
 
   // Company information
   doc.setFont("helvetica", "bold");
@@ -155,7 +149,7 @@ async function handleRequest(event) {
   );
   yPosition += 5;
   docText(marginLeft, yPosition, company_information.phone);
-  yPosition += 10;
+  yPosition += 20;
 
   // Invoice details on the top-right
   doc.setFont("helvetica", "normal");
@@ -190,7 +184,7 @@ async function handleRequest(event) {
   );
   yPosition += 5;
   docText(marginLeft, yPosition, customer_information.phone);
-  yPosition += 15;
+  yPosition += 25;
 
   // Table headers for items
   doc.setFont("helvetica", "bold");
