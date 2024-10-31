@@ -244,7 +244,7 @@ async function handleRequest(event) {
     docText(
       marginRight,
       yPosition - 34,
-      `Credit Card: ${pricing.credit_card_fee} Free  | ${pricing.total_with_fee}`,
+      `Credit Card: ${pricing.credit_card_fee} Fee | ${pricing.total_with_fee}`,
       "right"
     );
 
