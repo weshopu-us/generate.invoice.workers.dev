@@ -2,7 +2,7 @@
 
 // data = {
 //   company_information: {
-//     name: "Company",
+//     name: "We Shop U Miami Corp",
 //     address_line_1: "10630 NW 27Th Street",
 //     address_line_2: "Suite 211",
 //     city: "Doral",
@@ -161,12 +161,14 @@ async function handleRequest(event) {
     "right"
   );
   docText(marginRight, yPosition + 15 - 0, `Date: ${date}`, "right");
-  docText(
-    marginRight,
-    yPosition + 20 - 0,
-    `Total Pieces: ${total_pieces}`,
-    "right"
-  );
+  if (total_pieces) {
+    docText(
+      marginRight,
+      yPosition + 20 - 0,
+      `Total Pieces: ${total_pieces}`,
+      "right"
+    );
+  }
 
   // Customer information
   doc.setFont("helvetica", "bold");
@@ -188,9 +190,9 @@ async function handleRequest(event) {
 
   // Table headers for items
   doc.setFont("helvetica", "bold");
-  docText(marginLeft, yPosition, "Quantity");
-  docText(marginLeft + 30, yPosition, "Description");
-  docText(marginRight - 60, yPosition, "Unit Price", "right");
+  docText(marginLeft, yPosition, "Qty");
+  docText(marginLeft + 20, yPosition, "Description");
+  docText(marginRight - 30, yPosition, "Unit Price", "right");
   docText(marginRight, yPosition, "Net Price", "right");
   yPosition += 5;
   doc.setLineWidth(0.333);
@@ -201,10 +203,12 @@ async function handleRequest(event) {
   doc.setFont("helvetica", "normal");
   items.forEach((item) => {
     docText(marginLeft, yPosition, item.quantity);
-    docText(marginLeft + 30, yPosition, item.description);
-    docText(marginRight - 60, yPosition, item.unit_price, "right");
+    const maxDescriptionWidth = marginRight - (marginLeft + 20 + 50); // Adjust 80 to account for the space taken by other columns
+    const descriptionLines = doc.splitTextToSize(item.description, maxDescriptionWidth);
+    doc.text(descriptionLines, marginLeft + 20, yPosition);
+    docText(marginRight - 30, yPosition, item.unit_price, "right");
     docText(marginRight, yPosition, item.net_price, "right");
-    yPosition += 10;
+    yPosition += 15;
   });
   yPosition += 10;
 
