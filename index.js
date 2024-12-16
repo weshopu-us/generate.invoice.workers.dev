@@ -157,7 +157,7 @@ async function handleRequest(event) {
   docText(
     marginRight,
     yPosition + 10 - 0,
-    `Invoice #: ${invoice_number}`,
+    `Order #: ${invoice_number}`,
     "right"
   );
   docText(marginRight, yPosition + 15 - 0, `Date: ${date}`, "right");
