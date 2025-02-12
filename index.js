@@ -147,8 +147,8 @@ async function handleRequest(event) {
     yPosition,
     `${company_information.city}, ${company_information.state} ${company_information.zip}`
   );
-  yPosition += 5;
-  docText(marginLeft, yPosition, company_information.phone);
+  // yPosition += 5;
+  // docText(marginLeft, yPosition, company_information.phone);
   yPosition += 20;
 
   // Invoice details on the top-right
